@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import {
