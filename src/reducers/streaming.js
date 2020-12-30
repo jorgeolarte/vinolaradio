@@ -1,29 +1,20 @@
+import { makeType, mac } from "../utils/Reducers";
+
 const initialState = {
   streamStatus: false,
 };
 
-const makeType = (mod) => (type) => `${mod}/${type}`;
-
-// makeActionCreator
-const mac = (type, ...argNames) => (...args) => {
-  const action = { type };
-  argNames.forEach((arg, index) => {
-    action[argNames[index]] = args[index];
-  });
-  return action;
-};
-
-const t = makeType("SONG");
+const t = makeType("STREAMING");
 
 const START_STREAMING = t("START_STREAMING");
 const STOP_STREAMING = t("STOP_STREAMING");
 const CHANGE_STREAMING = t("CHANGE_STREAMING");
 const ERROR_STREAMING = t("ERROR_STREAMING");
 
-const startStreaming = mac(START_STREAMING);
-const stopStreaming = mac(STOP_STREAMING);
-const changeStreaming = mac(CHANGE_STREAMING, "payload");
-const errorStreaming = mac(ERROR_STREAMING, "error");
+export const startStreaming = mac(START_STREAMING);
+export const stopStreaming = mac(STOP_STREAMING);
+export const changeStreaming = mac(CHANGE_STREAMING, "payload");
+export const errorStreaming = mac(ERROR_STREAMING, "error");
 
 export default (state = initialState, action) => {
   //   console.log(action.type);

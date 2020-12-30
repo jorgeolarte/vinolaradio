@@ -1,22 +1,24 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
+import { mute } from "../reducers/player";
 
-export default ({ sound, isMuted, mute }) => {
+const Volume = ({ player, mute }) => {
   const [volume, setVolume] = useState(1.0);
 
   const changeVolume = async (volume) => {
     setVolume(volume);
     try {
-      await sound.setVolumeAsync(volume);
+      await player.sound.setVolumeAsync(volume);
     } catch (error) {}
   };
 
   const muteOrPlay = async () => {
     try {
       mute();
-      await sound.setIsMutedAsync(!isMuted);
+      await player.sound.setIsMutedAsync(!player.isMuted);
     } catch (e) {}
   };
 
@@ -26,7 +28,7 @@ export default ({ sound, isMuted, mute }) => {
         onPress={muteOrPlay}
         style={styles.volume}
         name={
-          isMuted
+          player.isMuted
             ? "ios-volume-mute"
             : volume > 0.85
             ? "ios-volume-high"
@@ -40,14 +42,26 @@ export default ({ sound, isMuted, mute }) => {
         style={styles.slider}
         minimumValue={0}
         maximumValue={1}
-        minimumTrackTintColor="#eee"
-        maximumTrackTintColor="#000"
+        minimumTrackTintColor='#eee'
+        maximumTrackTintColor='#000'
         value={1}
         onValueChange={(x) => changeVolume(x)}
       />
     </View>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    player: state.player,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  mute: () => dispatch(mute()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Volume);
 
 const styles = StyleSheet.create({
   container: {

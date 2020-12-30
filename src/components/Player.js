@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import {
   View,
@@ -7,33 +8,32 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Audio } from "expo-av";
+import { dispatchPlayer } from "../reducers/player";
+import { loadSong } from "../reducers/song";
 
-export default ({
-  statusPlaying,
-  dispatchPlayer,
-  sound,
-  isMuted,
-  loadSong,
-}) => {
+const Player = ({ player, dispatchPlayer, loadSong }) => {
+  const audio = useRef(new Audio.Sound());
+
   const playRecording = async () => {
-    await Audio.setAudioModeAsync({
-      playsInSilentModeIOS: true,
-      allowsRecordingIOS: false,
-      staysActiveInBackground: true,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-      shouldDuckAndroid: false,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-      playThroughEarpieceAndroid: false,
-    });
-    sound.setOnPlaybackStatusUpdate(updateScreenForSoundStatus);
-    await sound.loadAsync(
+    // await audio.current.setAudioModeAsync({
+    //   playsInSilentModeIOS: true,
+    //   allowsRecordingIOS: false,
+    //   staysActiveInBackground: true,
+    //   interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+    //   shouldDuckAndroid: false,
+    //   interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+    //   playThroughEarpieceAndroid: false,
+    // });
+
+    audio.current.setOnPlaybackStatusUpdate(updateScreenForSoundStatus);
+    await audio.current.loadAsync(
       {
         uri: "https://radio.netyco.com:17268/;stream.mp3",
       },
       {
         progressUpdateIntervalMillis: 15000,
         shouldPlay: true,
-        isMuted: isMuted,
+        isMuted: player.isMuted,
         isLooping: false,
         volume: 1.0,
       },
@@ -45,44 +45,48 @@ export default ({
   };
 
   const updateScreenForSoundStatus = async (status) => {
-    if (status.isPlaying && statusPlaying !== "playing") {
+    if (status.isPlaying && player.statusPlaying !== "playing") {
       loadSong();
       await dispatchPlayer("playing");
-    } else if (!status.isPlaying && statusPlaying === "playing") {
+    } else if (!status.isPlaying && player.statusPlaying === "playing") {
       await dispatchPlayer("donepause");
     }
   };
 
   const pauseAndPlayRecording = async () => {
-    if (sound != null) {
-      if (statusPlaying == "playing") {
-        await sound.pauseAsync();
-        await sound.unloadAsync();
+    if (audio.current != null) {
+      if (player.statusPlaying == "playing") {
+        await audio.current.pauseAsync();
+        await audio.current.unloadAsync();
         dispatchPlayer("donepause");
       } else {
-        await sound.playAsync();
+        await audio.current.playAsync();
         dispatchPlayer("playing");
       }
     }
   };
 
-  const playAndPause = () => {
-    if (statusPlaying === "nosound" || statusPlaying === "donepause") {
+  const playAndPause = async () => {
+    console.log(" player.statusPlaying: ", player.statusPlaying);
+    if (
+      player.statusPlaying === "nosound" ||
+      player.statusPlaying === "donepause"
+    ) {
       dispatchPlayer("isBuffering");
-      playRecording();
-    } else if (statusPlaying === "playing") {
-      pauseAndPlayRecording();
+      await playRecording();
+    } else if (player.statusPlaying === "playing") {
+      await pauseAndPlayRecording();
     }
   };
 
   return (
     <View style={styles.container}>
-      {statusPlaying === "isBuffering" ? (
-        <ActivityIndicator size="large" color="#fff" />
+      {player.statusPlaying === "isBuffering" ? (
+        <ActivityIndicator size='large' color='#fff' />
       ) : (
-        <TouchableOpacity onPress={playAndPause}>
+        <TouchableOpacity onPress={() => playAndPause()}>
           <Ionicons
-            name={statusPlaying === "playing" ? "ios-pause" : "ios-play"}
+            name={player.statusPlaying === "playing" ? "ios-pause" : "ios-play"}
             size={70}
             style={styles.text}
           />
@@ -91,6 +95,19 @@ export default ({
     </View>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    player: state.player,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  loadSong: () => dispatch(loadSong()),
+  dispatchPlayer: (status) => dispatch(dispatchPlayer(status)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,19 +1,10 @@
+import { makeType, mac } from "../utils/Reducers";
+
 const initialState = {
   artist: "",
   track: "",
   coverArt:
     "https://vinolaserver.jorgeolarte.vercel.app/assets/vinola-radio.jpg",
-};
-
-const makeType = (mod) => (type) => `${mod}/${type}`;
-
-// makeActionCreator
-const mac = (type, ...argNames) => (...args) => {
-  const action = { type };
-  argNames.forEach((arg, index) => {
-    action[argNames[index]] = args[index];
-  });
-  return action;
 };
 
 const t = makeType("SONG");
@@ -23,9 +14,9 @@ const ADD_ARTIST = t("ADD_ARTIST");
 const ADD_TRACK = t("ADD_TRACK");
 // const ADD_COVER = t("ADD_COVER");
 
-const addSong = mac(ADD_SONG, "artist", "track", "coverArt");
-const addArtist = mac(ADD_ARTIST, "payload");
-const addTrack = mac(ADD_TRACK, "payload");
+export const addSong = mac(ADD_SONG, "artist", "track", "coverArt");
+export const addArtist = mac(ADD_ARTIST, "payload");
+export const addTrack = mac(ADD_TRACK, "payload");
 // const addCover = mac(ADD_COVER, "payload");
 
 export default (state = initialState, action) => {

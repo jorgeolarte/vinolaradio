@@ -1,9 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { connect } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import TextTicker from "react-native-text-ticker";
 
-export default ({ artist, track }) => {
+const Song = ({ song }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.listening}>Estás escuchando</Text>
@@ -13,25 +13,32 @@ export default ({ artist, track }) => {
         scrollSpeed={300}
         marqueeDelay={1000}
       >
-        {artist === "" ? "Vinola Radio" : artist}
+        {song.artist === "" ? "Vinola Radio" : song.artist}
       </TextTicker>
       {/* <Text numberOfLines={1} style={styles.artist}>
         {artist === "" ? "Vinola Radio" : artist}
       </Text> */}
-      {!(track === "" || track === "undefined") ? (
+      {!(song.track === "" || song.track === "undefined") ? (
         <TextTicker
           style={styles.track}
           loop
           scrollSpeed={300}
           marqueeDelay={1000}
         >
-          {track}
+          {song.track}
         </TextTicker>
       ) : null}
-      <StatusBar style="inverted" />
     </View>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    song: state.song,
+  };
+};
+
+export default connect(mapStateToProps)(Song);
 
 const styles = StyleSheet.create({
   container: {

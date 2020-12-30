@@ -1,20 +1,10 @@
 import { Audio } from "expo-av";
+import { makeType, mac } from '../utils/Reducers';
 
 const initialState = {
-  sound: new Audio.Sound(),
+  // sound: new Audio.Sound(),
   statusPlaying: "nosound",
   isMuted: false,
-};
-
-const makeType = (mod) => (type) => `${mod}/${type}`;
-
-// makeActionCreator
-const mac = (type, ...argNames) => (...args) => {
-  const action = { type };
-  argNames.forEach((arg, index) => {
-    action[argNames[index]] = args[index];
-  });
-  return action;
 };
 
 const t = makeType("PLAYER");
@@ -24,10 +14,10 @@ const CHANGE_PLAYER = t("CHANGE_PLAYER");
 const ERROR_PLAYER = t("ERROR_PLAYER");
 const CHANGE_MUTED = t("CHANGE_MUTED");
 
-const setSound = mac(SET_SOUND, "payload");
-const changePlayer = mac(CHANGE_PLAYER, "payload");
-const errorPlayer = mac(ERROR_PLAYER, "payload", "error");
-const changeMuted = mac(CHANGE_MUTED, "payload");
+export const setSound = mac(SET_SOUND, "payload");
+export const changePlayer = mac(CHANGE_PLAYER, "payload");
+export const errorPlayer = mac(ERROR_PLAYER, "payload", "error");
+export const changeMuted = mac(CHANGE_MUTED, "payload");
 
 export default (state = initialState, action) => {
   switch (action.type) {

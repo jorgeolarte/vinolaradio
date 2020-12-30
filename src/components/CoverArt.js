@@ -1,13 +1,22 @@
 import React from "react";
+import { connect } from "react-redux";
 import { StyleSheet, View, Image } from "react-native";
 
-export default ({ coverArt }) => {
+const CoverArt = ({ song }) => {
   return (
     <View style={styles.container}>
-      <Image style={styles.coverArt} source={{ uri: `${coverArt}` }} />
+      <Image style={styles.coverArt} source={{ uri: `${song.coverArt}` }} />
     </View>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    song: state.song,
+  };
+};
+
+export default connect(mapStateToProps)(CoverArt);
 
 const styles = StyleSheet.create({
   container: {

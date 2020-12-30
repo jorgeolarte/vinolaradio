@@ -1,13 +1,25 @@
 import React from "react";
 import { Provider } from "react-redux";
-import store from "./src/store";
-import RootStackNavigator from "./src/index";
+import { ReduxNetworkProvider } from "react-native-offline";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./src/store";
+import MyApp from "./src/index";
 
-const App = () => {
+export default function () {
   return (
     <Provider store={store}>
-      <RootStackNavigator />
+      <PersistGate loading={null} persistor={persistor}>
+        <ReduxNetworkProvider
+          pingTimeout={1000}
+          pingServerUrl='https://google.com'
+          pingInterval={30000}
+          httpMethod='HEAD'
+          pingInBackground={true}
+          pingOnlyIfOffline={true}
+        >
+          <MyApp />
+        </ReduxNetworkProvider>
+      </PersistGate>
     </Provider>
   );
-};
-export default App;
+}
