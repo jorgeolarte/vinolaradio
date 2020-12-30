@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { loadSong } from "../redux/reducers/song";
-import { loadStream } from "../redux/reducers/streaming";
-import { dispatchPlayer } from "../redux/reducers/player";
-import { mute } from "../redux/reducers/player";
+import { loadSong } from "../reducers/song";
+import { loadStream } from "../reducers/streaming";
+import { dispatchPlayer } from "../reducers/player";
+import { mute } from "../reducers/player";
 import CoverArt from "../components/CoverArt";
 import Song from "../components/Song";
 import Player from "../components/Player";
