@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "api-8640702582254643606-447360",
+  "private_key_id": "302c34a7d40be4a280f5aa26a5e16445f6f8f3ab",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDED5ChOCe6YaAZ\nS6T1jYpjtSOwVx/TRhQBvHOeBRqCDqSwzYp5+9X2pErzKU+p8SHUgCcAmnCawYmb\n2TFWfhXptPnrvH0SaM2SaLGUam/nsNw0NCwS+OrYeX7qTQmeL36QyRLlaEi4LYga\nm9ok2k/J+PPNl3Fin/hsi0Ak7qAKXJJc6cgiaM7q39tq3NWC3YpIgpXbtkVeYAkN\nNv/2kpbYsnyYHTACUaj6hjxxkoI8vGnMVLpxZABSXnciXc00BuNwRS86echaYTiw\nM/72JyDCqzSNX1eO6bdSUCpOb1eV3qYiNSTxHQCl3O5elm+q2aKrYRubSl+MLWmx\n/+WGqdk/AgMBAAECggEALLZoA3xtAwJ0opAvxJhM8UREKVkVNveKZIL30xfS3co9\nIN0fMYaPWzpIpX/MXTNSxcWcH3UZLRHqMhKsP89ta+kL/gj0dRhVmYgqx3AmqS4a\nagVj78e4tzmuCf0brmmicZ6JoqvPucEYgwj8DN+ExsjxwPdCsn1NCGQRctrAwNvJ\nKvk5xo8IJM8FDQhJKm7+swm48rN7sOLxCbFEAAXRRslb6GwQjeAV6ZdIRV/6nCl6\nW/Jda0sCSjT3ERMJyngibKJz4ymW/iHvPEJYU53X+aAo/kXbJtxGCQyrp0LX89Bl\nuwOGjFzuG3vq3jTvkWhow7i7yby+7UEiuE/NafDVcQKBgQD0Xd4nTEgyuBCOKkEl\nNk9rwQLCXm7X58wisL3MQpsH1xGJ0MF6QIle6lH1FjgyMK3szCt7u5cNf2b+lFlt\nWb7evOo+FjslQLfAagLwNuTWRMYExPAInUvFWQpRRQIzmQWfUD7QEoczfg8/WSdg\noRzd5WTAr+rgnOiYTD5pzyx1OwKBgQDNZPyK4bE6zz1wd6K9/UhRrIYG3fppcubE\nm4jlk2ReqO1ltqz7+/BxFlDRIDi1CIbSr7bN6KoVGBwAPqSCbRKHRhiCZXpyUtIK\nYCGQRa3dJ1ONDnDcGm0uwbJK1q8Hk+Eed6PiHJB7yfCVzmMBFvX5bHKMjJwnK0kQ\n8/sBQOxbzQKBgQDtCEg+8j1uBSD55X6/a8jqCpR0mUkHYK6gT7Qq98iNeE5o0fd6\ncDNPwBazl1P3S0TJ1tmu8a15yETNWHTOHymHwNOuWb4RSo9ysuIaxASA2sEBS05R\n7NHcoZvibP/PsPTFLf9fsTk392Uu23nYvy7TBnoOdhVsvobXg81esTi8lQKBgDk+\n/kxPHzB+9mbUUV2WrINnDGv5joO5bKw7lWo3LHBdsNz6jzgkPh2m1JuU2XlLiRhL\ntS2qvUznzVYcH4nikJl3ZfliA0C96KDPrkshwJW1EkpsTfRqwSeZAPJu55W7F7GA\nMwMgZvy5if6W6W0yUxhTq5GU1yjrnY/GEJ2G1Nm5AoGBAIQvthYwUaskCkaVjJIE\nZZd3fAL/LxYKOjjLu7k09foNtornM+RqAUPC3fVxsSwsXAZIVfJdoBxzZFmZy0TX\n328nDKH6JX2ipW037ew9NmHxhAqmPNRAJOFmxhfGkfuWSVFjFphLlBc5NqYjZzDk\nde70oWq0XqZ405/1SE2lxGPU\n-----END PRIVATE KEY-----\n",
+  "client_email": "vinola-radio@api-8640702582254643606-447360.iam.gserviceaccount.com",
+  "client_id": "117386561560875230110",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vinola-radio%40api-8640702582254643606-447360.iam.gserviceaccount.com"
+}
