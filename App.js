@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import ButtonMenu from "./src/components/ButtonMenu";
 import Logo from "./src/components/Logo";
-// import Share from "./src/components/Share";
 import * as screens from "./src/screens";
 import { Provider } from "react-redux";
 import store from "./src/redux/store";
