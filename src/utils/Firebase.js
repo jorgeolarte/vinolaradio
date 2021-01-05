@@ -1,15 +1,25 @@
-import firebase from 'firebase';
-import auth from 'firebase/auth';
+import firebase from "firebase";
+import auth from "firebase/auth";
+import {
+  API_KET,
+  AUTH_DOMAIN,
+  DATABASE_URL,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "@env";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBxqB57ZmTbMbc-P1w48XEpirJ021eOsb4',
-  authDomain: 'myfirstfirebase-5a188.firebaseapp.com',
-  databaseURL: 'https://myfirstfirebase-5a188.firebaseio.com',
-  projectId: 'myfirstfirebase-5a188',
-  storageBucket: 'myfirstfirebase-5a188.appspot.com',
-  messagingSenderId: '738346962097',
-  appId: '1:738346962097:web:d6befce02b5438ee0da690',
-  measurementId: 'G-YYF2T7C766',
+  apiKey: API_KET,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
 try {
@@ -17,7 +27,7 @@ try {
     firebase.initializeApp(firebaseConfig);
   }
 } catch (err) {
-  console.log('Firebase initialized: ', err);
+  console.log("Firebase initialized: ", err);
 }
 
 export { firebase, auth };

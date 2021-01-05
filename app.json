@@ -20,7 +20,11 @@
       "supportsTablet": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "name": "Vinola Radio",
+      "favicon": "./assets/icon.png",
+      "backgroundColor": "#00aeff",
+      "themeColor": "#00aeff",
+      "description": "Con este mecanismo de limpieza digital de oídos y destapador cerebral de prejuicios auditivos podrás disfrutar de sabrosas interpretaciones musicales por tus artistas favoritos, rechazados, olvidados, clásicos y nuevos."
     },
     "android": {
       "versionCode": 2,

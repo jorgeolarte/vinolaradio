@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -10,30 +10,41 @@ import {
 import { Audio } from "expo-av";
 import { dispatchPlayer } from "../reducers/player";
 import { loadSong } from "../reducers/song";
+import { RADIO_URI } from "@env";
 
 const Player = ({ player, dispatchPlayer, loadSong }) => {
-  const audio = useRef(new Audio.Sound());
+  const sound = useRef(new Audio.Sound());
+
+  useEffect(() => {
+    async function setAudioMode() {
+      if (sound.current === null) {
+        await sound.current.setAudioModeAsync({
+          playsInSilentModeIOS: true,
+          allowsRecordingIOS: false,
+          staysActiveInBackground: true,
+          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+          shouldDuckAndroid: false,
+          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+          playThroughEarpieceAndroid: false,
+        });
+      }
+    }
+
+    return () => setAudioMode();
+  }, []);
 
   const playRecording = async () => {
-    // await audio.current.setAudioModeAsync({
-    //   playsInSilentModeIOS: true,
-    //   allowsRecordingIOS: false,
-    //   staysActiveInBackground: true,
-    //   interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-    //   shouldDuckAndroid: false,
-    //   interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-    //   playThroughEarpieceAndroid: false,
-    // });
-
-    audio.current.setOnPlaybackStatusUpdate(updateScreenForSoundStatus);
-    await audio.current.loadAsync(
+    sound.current.setOnPlaybackStatusUpdate(updateScreenForSoundStatus);
+    await sound.current.loadAsync(
       {
-        uri: "https://radio.netyco.com:17268/;stream.mp3",
+        uri: RADIO_URI,
       },
       {
         progressUpdateIntervalMillis: 15000,
         shouldPlay: true,
         isMuted: player.isMuted,
+        shouldCorrectPitch: true,
+        pitchCorrectionQuality: Audio.PitchCorrectionQuality.High,
         isLooping: false,
         volume: 1.0,
       },
@@ -54,13 +65,13 @@ const Player = ({ player, dispatchPlayer, loadSong }) => {
   };
 
   const pauseAndPlayRecording = async () => {
-    if (audio.current != null) {
+    if (sound.current != null) {
       if (player.statusPlaying == "playing") {
-        await audio.current.pauseAsync();
-        await audio.current.unloadAsync();
+        await sound.current.pauseAsync();
+        await sound.current.unloadAsync();
         dispatchPlayer("donepause");
       } else {
-        await audio.current.playAsync();
+        await sound.current.playAsync();
         dispatchPlayer("playing");
       }
     }
