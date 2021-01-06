@@ -24,11 +24,24 @@
       "favicon": "./assets/icon.png",
       "backgroundColor": "#00aeff",
       "themeColor": "#00aeff",
-      "description": "Con este mecanismo de limpieza digital de oídos y destapador cerebral de prejuicios auditivos podrás disfrutar de sabrosas interpretaciones musicales por tus artistas favoritos, rechazados, olvidados, clásicos y nuevos."
+      "description": "Con este mecanismo de limpieza digital de oídos y destapador cerebral de prejuicios auditivos podrás disfrutar de sabrosas interpretaciones musicales por tus artistas favoritos, rechazados, olvidados, clásicos y nuevos.",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyDvECtJa3nQw_a6VpAjZgI4tYd5Q14LA1U",
+          "authDomain": "vinola-radio-dev.firebaseapp.com",
+          "databaseURL": "https://vinola-radio-dev-default-rtdb.firebaseio.com",
+          "projectId": "vinola-radio-dev",
+          "storageBucket": "vinola-radio-dev.appspot.com",
+          "messagingSenderId": "667581011358",
+          "appId": "1:667581011358:web:a48b21a21ad292a55af28f",
+          "measurementId": "G-YYF2T7C766"
+        }
+      }
     },
     "android": {
       "versionCode": 2,
       "package": "com.jorgeolarte.vinolaradio",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#00aeff"

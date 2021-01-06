@@ -1,16 +1,34 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { StatusBar } from "react-native";
+import { connect } from "react-redux";
+import {
+  checkInternetConnection,
+  offlineActionCreators,
+} from "react-native-offline";
 import { NavigationContainer } from "@react-navigation/native";
 import MainStackNavigator from "./navigations/MainStack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import * as Analytics from "expo-firebase-analytics";
 import * as screens from "./screens";
+import * as Analytics from "expo-firebase-analytics";
 
 const RootStack = createDrawerNavigator();
+const { connectionChange } = offlineActionCreators;
 
-const MyApp = () => {
+const MyApp = ({ network, connectionChange, signOut }) => {
   const routeNameRef = useRef();
   const navigationRef = useRef();
+
+  useEffect(() => {
+    const internetChecker = async () => {
+      const isConnected = await checkInternetConnection();
+      // Dispatching can be done inside a connected component, a thunk (where dispatch is injected), saga, or any sort of middleware
+      console.log("isConnected: ", isConnected);
+      // In this example we are using a thunk
+      connectionChange(isConnected);
+    };
+
+    return () => internetChecker();
+  }, []);
 
   return (
     <>
@@ -37,7 +55,7 @@ const MyApp = () => {
       >
         <RootStack.Navigator
           drawerContent={(props) => (
-            <screens.optionsScreen props={{ ...props }} />
+            <screens.OptionsScreen props={{ ...props }} />
           )}
           initialRouteName='Main'
           drawerPosition='right'
@@ -51,11 +69,28 @@ const MyApp = () => {
             },
           }}
         >
-          <RootStack.Screen name='Inicio' component={MainStackNavigator} />
+          {!network.isConnected ? (
+            <RootStack.Screen
+              name='Offline'
+              component={screens.OfflineScreen}
+            />
+          ) : (
+            <RootStack.Screen name='Inicio' component={MainStackNavigator} />
+          )}
         </RootStack.Navigator>
       </NavigationContainer>
     </>
   );
 };
 
-export default MyApp;
+const mapStateToProps = (state) => {
+  return {
+    network: state.network,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  connectionChange: (isConnected) => dispatch(connectionChange(isConnected)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyApp);

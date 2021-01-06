@@ -1,8 +1,12 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 
 const OfflineScreen = () => {
-  return <View style={styles.container}></View>;
+  return (
+    <View>
+      <Text>Estoy offline</Text>
+    </View>
+  );
 };
 
 export default OfflineScreen;
